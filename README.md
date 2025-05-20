@@ -1,2 +1,2 @@
 # Cocos.FlappyBird
-使用Cocos学习的FlappyBird游戏项目。
+学习使用Cocos开发的FlappyBird游戏项目。
