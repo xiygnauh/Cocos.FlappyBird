@@ -1,8 +1,9 @@
-import { _decorator, Component, Game, Node } from 'cc';
+import { _decorator, Component, Game, Label, Node } from 'cc';
 import { Bird } from './Bird';
 import { MoveBg } from './MoveBg';
 import { PipeSpawn } from './PipeSpawn';
 import { GameReady } from './Ui/GameReady';
+import { GameData } from './GameData';
 const { ccclass, property } = _decorator;
 
 enum GameState{
@@ -35,6 +36,11 @@ export class GameManger extends Component {
 
     @property(GameReady)
     gameReadyUi:GameReady = null;
+    @property(Node)
+    gamingUi:Node = null;
+
+    @property(Label)
+    scoreLable:Label = null;
 
     curGameState:GameState = GameState.Ready;
 
@@ -52,6 +58,9 @@ export class GameManger extends Component {
         this.bgMoving.disableMoving();
         this.landMoving.disableMoving();
         this.pipeSpawn.pause();
+
+        this.gameReadyUi.node.active = true;
+        this.gamingUi.active = false;
     }
 
     transistionToGaming(){
@@ -62,6 +71,7 @@ export class GameManger extends Component {
         this.pipeSpawn.resume();
 
         this.gameReadyUi.node.active = false;
+        this.gamingUi.active = true;
     }
 
     transitionToGameOver(){
@@ -73,6 +83,11 @@ export class GameManger extends Component {
 
     update(deltaTime: number) {
         
+    }
+
+    addScore(count:number =1){
+        GameData.addScore(count);
+        this.scoreLable.string = GameData.getScore().toString();
     }
 }
 
