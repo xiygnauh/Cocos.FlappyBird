@@ -12,11 +12,16 @@ export class PipeSpawn extends Component {
 
     private timer:number = 0;
 
+    private isSpawning:boolean = false;
+
     start() {
 
     }
 
     update(deltaTime: number) {
+
+        if(!this.isSpawning) return;
+
         this.timer += deltaTime;
 
         if(this.timer > this.spawnRate){
@@ -34,6 +39,16 @@ export class PipeSpawn extends Component {
             pipeInst.setPosition(p.x,y);
         }
     }
+
+    public pause(){
+        this.isSpawning = false;
+        //this.node.children
+    }
+
+    public resume(){
+        this.isSpawning = true;
+    }
+
 }
 
 
